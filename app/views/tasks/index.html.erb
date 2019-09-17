@@ -1,5 +1,20 @@
-<h1>This will list all tasks to be done.</h1>
-<% @tasks.each do |t| %>
-  <h3><%= link_to t.title, task_path(t) %></h3>
-  <%= link_to 'delete', task_path(t), method: :delete, data: { confirm: "Are you sure?" } %>
-<% end %>
+
+<div class="flexbox-center">
+<h1>My Tasks</h1>
+<div class="box">
+  <% @tasks.each do |t| %>
+    <div class="item">
+      <div class="checkbox">
+
+        <%= link_to check_box("completed", t[:id], {checked: t.completed?}), task_path(t), method: :update %>
+      </div>
+      <div class="title">
+        <h3><%= link_to t.title, task_path(t) %></h3>
+      </div>
+      <div class="delete">
+        <%= link_to 'delete', task_path(t), method: :delete, data: { confirm: "Are you sure?" } %>
+      </div>
+    </div>
+  <% end %>
+</div>
+</div>

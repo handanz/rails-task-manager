@@ -11,6 +11,14 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  def completed?
+    @task.completed
+  end
+
+  def completed!
+    @task.completed == true
+  end
+
   def create
     Task.new(restaurant_strong_params).save
     redirect_to tasks_path(@task)
@@ -23,6 +31,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     @task.update(restaurant_strong_params)
+    @task.completed = true
     redirect_to tasks_path(@task)
   end
 
@@ -35,6 +44,6 @@ class TasksController < ApplicationController
   private
 
   def restaurant_strong_params
-    params.require(:task).permit(:title, :details)
+    params.require(:task).permit(:title, :details, :completed)
   end
 end
